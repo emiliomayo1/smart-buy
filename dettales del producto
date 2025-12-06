@@ -1,0 +1,227 @@
+aqui es la pantalla donde se mostrara el producto ingresado y dara las especificaciones sobre el producto 
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ProductDetail">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_screen_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="DETALLES DEL PRODUCTO Y RESEÑAS"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:paddingBottom="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Sony WF-1000XM5"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_background_green"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_screen_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:id="@+id/img_product"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/product_image_description"
+            app:layout_constraintTop_toBottomOf="@id/tv_product_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_details_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Detalles del Producto"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_background_green_full_width"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@id/img_product"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/ll_details_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/yellow_background"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_details_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView android:id="@+id/tv_detalle_marca" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                tools:text="Marca: Sony" android:textSize="18sp" android:textStyle="bold" android:paddingBottom="4dp"/>
+            <TextView android:id="@+id/tv_detalle_color" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                tools:text="Color: Negro" android:textSize="18sp" android:textStyle="bold" android:paddingBottom="4dp"/>
+            <TextView android:id="@+id/tv_detalle_colocacion" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                tools:text="Colocación del oído: Por encima de la oreja" android:textSize="18sp" android:textStyle="bold" android:paddingBottom="4dp"/>
+            <TextView android:id="@+id/tv_detalle_factor_forma" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                tools:text="Factor de forma: Intraurales" android:textSize="18sp" android:textStyle="bold" android:paddingBottom="4dp"/>
+            <TextView android:id="@+id/tv_detalle_impedancia" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                tools:text="Impedancia: 314 Ohm" android:textSize="18sp" android:textStyle="bold" android:paddingBottom="4dp"/>
+            <TextView android:id="@+id/tv_detalle_control_ruido" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                tools:text="Control de ruido: Cancelación activa de ruido" android:textSize="18sp" android:textStyle="bold"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_reviews"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="⭐ Reseñas ⭐"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/green_button"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            app:cornerRadius="16dp"
+            app:layout_constraintTop_toBottomOf="@id/ll_details_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Button
+            android:id="@+id/btn_similar_options"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Opciones con un Precio Similar"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/purple_500"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            app:cornerRadius="16dp"
+            app:layout_constraintTop_toBottomOf="@id/btn_reviews"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+
+con su parte logica aqui 
+
+package com.example.smartbuy
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+
+class ProductDetail : AppCompatActivity() {
+    private lateinit var tvProductName: TextView
+    private lateinit var imgProduct: ImageView
+    private lateinit var tvDetalleMarca: TextView
+    // ... declara el resto de los TextViews de detalles aquí
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_product_detail)
+
+        // 2. Inicializar las vistas
+        setupViews()
+
+        // 3. Recuperar el ID del producto
+        val productId = intent.getStringExtra("PRODUCT_ID")
+
+        if (productId != null) {
+            // 4. Cargar y mostrar los datos del producto
+            loadProductDetails(productId)
+        } else {
+            Toast.makeText(this, "Error: No se encontró el ID del producto.", Toast.LENGTH_LONG)
+                .show()
+            finish()
+        }
+
+        // 5. Configurar los botones de acción
+        setupActionButtons()
+    }
+
+    private fun setupViews() {
+        // Inicialización de los elementos principales (con IDs de tu XML)
+        tvProductName = findViewById(R.id.tv_product_name)
+        imgProduct = findViewById(R.id.img_product)
+        tvDetalleMarca = findViewById(R.id.tv_detalle_marca)
+        // Inicializa el resto de los detalles:
+        // tvDetalleColor = findViewById(R.id.tv_detalle_color)
+        // ... y así sucesivamente para todos los TextViews de detalle.
+    }
+
+    private fun loadProductDetails(id: String) {
+        // --- SIMULACIÓN DE CARGA DE DATOS ---
+        // En una app real, aquí harías una llamada a tu API o Base de Datos
+        // (Firebase, Room, Retrofit, etc.) para obtener el objeto Producto.
+
+        // Supongamos que obtienes un objeto Producto (Marca, Color, etc.):
+        val name = "Sony WF-1000XM5"
+        val brand = "Sony"
+        val color = "Negro"
+
+        // Actualizar la interfaz con los datos
+        tvProductName.text = name
+        tvDetalleMarca.text = "Marca: $brand"
+
+        // Usar una librería como Glide para cargar la imagen (requiere dependencia)
+        // Glide.with(this).load(product.imageUrl).into(imgProduct)
+
+        // *** Importante: Debes repetir este proceso para todos los 6 detalles (color, colocacion, etc.) ***
+        // tvDetalleColor.text = "Color: $color"
+        // ...
+    }
+
+    private fun setupActionButtons() {
+        val btnReviews: Button = findViewById(R.id.btn_reviews)
+        val btnSimilarOptions: Button = findViewById(R.id.btn_similar_options)
+
+        btnReviews.setOnClickListener {
+            // Lógica para ir a la actividad de Reseñas
+            Toast.makeText(this, "Navegando a Reseñas...", Toast.LENGTH_SHORT).show()
+            // startActivity(Intent(this, ReviewsActivity::class.java))
+        }
+
+        btnSimilarOptions.setOnClickListener {
+            // Lógica para ir a la lista de Opciones Similares
+            Toast.makeText(this, "Buscando opciones similares...", Toast.LENGTH_SHORT).show()
+            // startActivity(Intent(this, SimilarProductsActivity::class.java))
+        }
+    }
+}
