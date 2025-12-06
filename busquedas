@@ -1,0 +1,207 @@
+pantalla de busqueda 
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#91B4C4"
+    tools:context=".AgregarProducto">
+
+    <TextView
+        android:id="@+id/txtLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Smart\nBuy"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:textColor="#2E2E2E"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="70dp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardSearch"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="7dp"
+        app:layout_constraintTop_toBottomOf="@id/txtLogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/camaraIcono"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_camara"  />
+
+            <EditText
+                android:id="@+id/searchInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="Buscar producto..."
+                android:textSize="17sp"
+                android:padding="10dp"
+                android:maxLines="1"/>
+
+            <ImageView
+                android:id="@+id/buscarBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_buscar"  />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavbar"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:background="@android:color/white"
+        app:itemIconSize="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+su parte logica esta aqui lo que hara es uscar en la base de datos los productos qeu coincidan con lo que busque el usuario 
+package com.example.smartbuy
+
+import com.example.smartbuy.R
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Bundle
+import android.widget.ImageButton
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.google.android.material.bottomnavigation.BottomNavigationView
+
+
+class AgregarProducto : AppCompatActivity() {
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                Toast.makeText(
+                    this,
+                    "Permiso de CÁMARA concedido. Abriendo cámara...",
+                    Toast.LENGTH_SHORT
+                ).show()
+                // TODO: Inicia el Intent de la cámara/galería aquí.
+            } else {
+                Toast.makeText(
+                    this,
+                    "Permiso de CÁMARA denegado. No se puede acceder.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // ⚠️ CORRECCIÓN CLAVE 1: Usar el layout correcto que contiene la BottomNavigationView.
+        setContentView(R.layout.activity_agregar_producto)
+
+        // --- 1. CONFIGURACIÓN DE LA BARRA DE NAVEGACIÓN INFERIOR ---
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
+
+        // Marca el ítem actual como seleccionado para feedback visual.
+        // Asumiendo que esta pantalla es la de 'Búsqueda/Agregar Producto'.
+        bottomNavigationView.selectedItemId = R.id.nav_search
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_search -> {
+                    // Ya estás en la pantalla de Búsqueda/Agregar Producto, no hacemos nada o recargamos.
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.nav_community -> {
+                    // 🚀 CORRECCIÓN CLAVE 2: Usar Intent para navegar a la nueva Activity.
+                    // Reemplaza CommunityActivity::class.java con el nombre de tu Activity de Comunidad.
+                    startActivity(Intent(this, CommunityActivity::class.java))
+                    // finish() es opcional aquí. Si no lo usas, al presionar 'Atrás' volverás a esta pantalla.
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.nav_profile -> {
+                    // 🚀 CORRECCIÓN CLAVE 2: Usar Intent para navegar a la nueva Activity.
+                    // Reemplaza ProfileActivity::class.java con el nombre de tu Activity de Perfil.
+                    startActivity(Intent(this, PerfilActivity::class.java))
+                    return@setOnItemSelectedListener true
+
+                }
+
+                else -> false
+            }
+        }
+
+        // --- 2. MANEJO DE LOS BOTONES SUPERIORES ---
+
+        // Botón Izquierdo: Tomar foto o Añadir imagen
+        val cameraPhotoButton = findViewById<ImageButton>(R.id.button_camera_photo)
+        cameraPhotoButton.setOnClickListener {
+            checkAndRequestCameraPermission()
+        }
+
+        // Botón Derecho: Buscar por Texto
+        val searchTextButton = findViewById<ImageButton>(R.id.button_search_text)
+        searchTextButton.setOnClickListener {
+            Toast.makeText(this, "Buscando por texto en el catálogo...", Toast.LENGTH_SHORT).show()
+            // TODO: Lógica de búsqueda por texto.
+        }
+    }
+
+    // --- FUNCIÓN DE VERIFICACIÓN Y SOLICITUD DE PERMISOS (Sin cambios, es correcta) ---
+
+    private fun checkAndRequestCameraPermission() {
+        when {
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                // Permiso concedido.
+                Toast.makeText(this, "Permiso ya concedido. Abriendo cámara...", Toast.LENGTH_SHORT)
+                    .show()
+                // TODO: Llama a la función para abrir la cámara/galería aquí.
+            }
+
+            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
+                // Muestra explicación y luego solicita el permiso.
+                Toast.makeText(
+                    this,
+                    "Necesitamos permiso de la cámara para analizar productos.",
+                    Toast.LENGTH_LONG
+                ).show()
+                requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+            }
+
+            else -> {
+                // Solicitar el permiso.
+                requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+            }
+        }
+    }
+}
